@@ -1,6 +1,3 @@
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/leesdonson/rtk-playground.git
-git push -u origin main
+## Redux ToolKit + React Playground
+
+This is a simple React application for a Social Media post.
