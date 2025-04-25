@@ -1,9 +1,14 @@
+.post_details_container {
+  width: 100%;
+  margin-top: 5rem;
+  padding: 10px;
+}
 .details {
   max-width: 768px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 5px;
   width: 100%;
-  border: 0.3px solid rgb(243, 200, 6);
+  border: 0.3px solid rgb(95, 94, 89);
   border-radius: 10px;
 }
 
@@ -73,7 +78,7 @@
   background: linear-gradient(
     to right,
     rgba(83, 76, 76, 0.66),
-    rgba(80, 72, 72, 0.66)
+    rgba(119, 111, 111, 0.66)
   );
   margin-top: 10px;
   padding: 10px;
@@ -89,65 +94,6 @@
   justify-content: space-between;
   position: relative;
 }
-.comment_input {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  border-radius: 6px;
-  border: none;
-  background-color: rgb(4, 4, 51);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.cmt_input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  padding: 10px;
-}
-
-/* comments section styles  */
-.comment_section {
-  width: 100%;
-  border: 0.2px solid rgb(112, 104, 104);
-  border-radius: 6px;
-  padding: 10px;
-}
-
-.comment_header {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-.cmentor_image {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-.a_name {
-  text-transform: capitalize;
-  font-size: 14px;
-}
-.comment_box {
-  margin: 8px 0;
-  font-size: 12px;
-}
-.comment_footer {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 1rem;
-  font-size: 12px;
-}
-
 .cmt_btn {
   border: none;
   padding: 6px 8px;

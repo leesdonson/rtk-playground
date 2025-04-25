@@ -2,6 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
 import { useEffect, useState } from "react";
 import Loading from "../ui/loading";
+import { useDispatch } from "react-redux";
+import { login } from "../../app/features/users/userSlice";
+
 interface FormData {
   email: string;
   password: string;
@@ -16,6 +19,7 @@ const SignIn = () => {
   const [formData, setFormData] = useState<FormData>(defaultValues);
   const { email, password } = formData;
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -36,9 +40,11 @@ const SignIn = () => {
       alert("Please enter email and password");
       return;
     }
+    const payload = { email, password };
     setLoading(true);
     setTimeout(() => {
-      localStorage.setItem("rtk_user", JSON.stringify(formData));
+      // localStorage.setItem("rtk_user", JSON.stringify(formData));
+      dispatch(login(payload));
       setLoading(false);
       navigate("/");
     }, 3000);

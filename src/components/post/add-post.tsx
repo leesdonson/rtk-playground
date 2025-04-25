@@ -11,7 +11,7 @@ const CreatePost = () => {
   const [text, setText] = useState("");
   const [previewImage, setPreviewImage] = useState("");
 
-  console.log(file);
+  // console.log(file);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
@@ -28,9 +28,14 @@ const CreatePost = () => {
     setText(event.target.value);
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(file, text);
+  };
+
   return (
     <div className={styles.post}>
-      <form className={styles.post_content}>
+      <form onSubmit={handleSubmit} className={styles.post_content}>
         <div onClick={() => navigate("/")} className={styles.post_close_icon}>
           <FaRegWindowClose className={styles.post_close} />
         </div>
@@ -43,7 +48,7 @@ const CreatePost = () => {
               id="image"
               type="file"
             />
-            <IoMdPhotos className={styles.post_icon} /> Photo
+            <IoMdPhotos className={styles.post_icon} /> Add Photo
           </label>
           <textarea
             onChange={handleTextChange}

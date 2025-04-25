@@ -1,0 +1,33 @@
+.comment_input {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgb(4, 4, 51);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.cmt_input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 10px;
+}
+.cmt_btn {
+  border: none;
+  padding: 6px 8px;
+  background-color: blue;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12px;
+  cursor: pointer;
+}

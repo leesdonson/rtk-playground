@@ -1,29 +1,50 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
 import { useState } from "react";
-interface FormData {
+import { signUp } from "../../app/features/auth/authSlice";
+import { SignUp as SignUpProps } from "../../app/features/auth/types";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import Loading from "../ui/loading";
+
+interface FormProps {
   name: string;
   email: string;
   password: string;
 }
 
-const initialValues: FormData = {
+const initialValues: FormProps = {
   name: "",
   email: "",
   password: "",
 };
 const SignUp = () => {
-  const [formData, setFormData] = useState<FormData>(initialValues);
+  const [formData, setFormData] = useState<SignUpProps>(initialValues);
+  const dispatch = useAppDispatch();
+  const { loading } = useAppSelector((state) => state.auth);
+  // console.log(error);
+
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log(value);
+    // console.log(value);
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
+    const { name, email, password } = formData;
+    if (!name || !email || !password) {
+      alert("Please enter name, email and password");
+    }
+    const payload = { name, email, password };
+    dispatch(signUp(payload)).then((res: any) => {
+      if (res.meta.requestStatus === "fulfilled") {
+        setFormData(initialValues);
+        navigate("/");
+        alert(res.payload.message);
+      }
+    });
   };
 
   return (
@@ -76,7 +97,13 @@ const SignUp = () => {
           </div>
         </div>
         <button type="submit" className={styles.form_submit}>
-          Sign Up
+          {loading ? (
+            <>
+              <Loading /> Loading{" "}
+            </>
+          ) : (
+            "Sign Up"
+          )}
         </button>
         <div className={styles.form_footer}>
           <p>Already have an account?</p>

@@ -14,7 +14,7 @@ interface User {
 
 const initialState: User = {
   user: {
-    username: "",
+    username: "me",
     email: "",
     role: Role.USER,
   },
@@ -25,8 +25,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload;
+      console.log(action.payload);
+      state.user = { ...state.user, ...action.payload };
     },
+
     logout: (state) => {
       state.user = {
         username: "",
