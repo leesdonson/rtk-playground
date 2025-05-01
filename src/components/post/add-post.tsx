@@ -3,6 +3,8 @@ import styles from "./post.module.css";
 import { IoMdPhotos } from "react-icons/io";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/hooks";
+import { createPost } from "../../app/features/post/postSlice";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const CreatePost = () => {
   const [previewImage, setPreviewImage] = useState("");
 
   // console.log(file);
-
+  const dispatch = useAppDispatch();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
     const selectedFile = file || null;
@@ -30,7 +32,17 @@ const CreatePost = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(file, text);
+
+    const payload = {
+      description: text,
+      thumbnail: "placeholder.png",
+    };
+    dispatch(createPost(payload)).then((data: any) => {
+      if (data.payload) {
+        console.log(data.payload.message);
+        navigate("/");
+      }
+    });
   };
 
   return (

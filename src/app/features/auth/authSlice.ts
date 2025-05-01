@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SignIn, SignUp } from "./types";
 import authServices from "./authService";
 
-type User = {
+export type User = {
   id: string;
   name: string;
   email: string;
@@ -93,14 +93,15 @@ const authSlice = createSlice({
       })
       .addCase(signUp.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = "Error Occured";
+        console.log(action.error);
       })
       .addCase(signIn.pending, (state) => {
         state.loading = true;
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.loading = false;
-        console.log(action.payload);
+        // console.log(action.payload.message);
         state.user = action.payload.data;
         state.message = action.payload.message;
       })
@@ -113,12 +114,14 @@ const authSlice = createSlice({
       })
       .addCase(signOut.fulfilled, (state, action) => {
         state.loading = false;
+        console.log(action.payload);
         state.user = null;
         state.message = action.payload.message;
       })
       .addCase(signOut.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        console.log(action.payload);
       });
   },
 });

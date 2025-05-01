@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./form.module.css";
 import { useEffect, useState } from "react";
 import Loading from "../ui/loading";
-import { useDispatch } from "react-redux";
-import { login } from "../../app/features/users/userSlice";
+import { signIn } from "../../app/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 interface FormData {
   email: string;
@@ -18,8 +18,10 @@ const defaultValues: FormData = {
 const SignIn = () => {
   const [formData, setFormData] = useState<FormData>(defaultValues);
   const { email, password } = formData;
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
+  // const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const { user, loading, message } = useAppSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("rtk_user")) {
+    if (user) {
       navigate("/");
     }
   }, []);
@@ -41,14 +43,13 @@ const SignIn = () => {
       return;
     }
     const payload = { email, password };
-    setLoading(true);
-    setTimeout(() => {
-      // localStorage.setItem("rtk_user", JSON.stringify(formData));
-      dispatch(login(payload));
-      setLoading(false);
-      navigate("/");
-    }, 3000);
-    console.log(formData);
+    dispatch(signIn(payload)).then((res: any) => {
+      console.log(message);
+      if (res.payload?.data) {
+        localStorage.setItem("rtk_user", JSON.stringify(res.payload?.data));
+        navigate("/");
+      }
+    });
   };
 
   return (

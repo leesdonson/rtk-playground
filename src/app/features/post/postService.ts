@@ -1,14 +1,12 @@
 import { API } from "../constants";
-import {
-  EditPostData,
-  MutationResponse,
-  NewPostData,
-  PostResponse,
-} from "./types";
+import { EditPostData, GetPosts, MutationResponse, NewPostData } from "./types";
 
 // Create post
-
-const createPost = async (data: NewPostData): Promise<PostResponse> => {
+interface CPResponse {
+  statusTxt: string;
+  message: string;
+}
+const createPost = async (data: NewPostData): Promise<CPResponse> => {
   const response = await fetch(`${API.post}/create-post`, {
     method: "POST",
     credentials: "include",
@@ -17,12 +15,18 @@ const createPost = async (data: NewPostData): Promise<PostResponse> => {
     },
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
   const responseData = await response.json();
-  return responseData.data;
+  return responseData;
 };
 
 // Get all post
-const getPosts = async (): Promise<PostResponse[]> => {
+
+const getPosts = async (): Promise<GetPosts[]> => {
   const response = await fetch(`${API.post}/`, {
     method: "GET",
     credentials: "include",
@@ -30,6 +34,11 @@ const getPosts = async (): Promise<PostResponse[]> => {
       "Content-Type": "application/json",
     },
   });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
   const responseData = await response.json();
   return responseData.data;
 };
@@ -44,6 +53,11 @@ const editPost = async (data: EditPostData): Promise<MutationResponse> => {
     },
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
   const responseData = await response.json();
   return responseData.data;
 };
@@ -57,8 +71,13 @@ const deletePost = async (id: string): Promise<MutationResponse> => {
       "Content-Type": "application/json",
     },
   });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
   const responseData = await response.json();
-  return responseData;
+  return responseData.data;
 };
 
 const postServices = { createPost, getPosts, editPost, deletePost };

@@ -5,11 +5,17 @@ import { AuthResponse, SignIn, SignUp } from "./types";
 const signUp = async (data: SignUp): Promise<AuthResponse> => {
   const response = await fetch(`${API.auth}/sign-up`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
+  if (!response.ok) {
+    const error = await response.json();
+    return await error.message;
+  }
+
   const responseData = await response.json();
   return responseData;
 };
@@ -18,11 +24,17 @@ const signUp = async (data: SignUp): Promise<AuthResponse> => {
 const signIn = async (data: SignIn): Promise<AuthResponse> => {
   const response = await fetch(`${API.auth}/sign-in`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
   const responseData = await response.json();
   return responseData;
 };
@@ -36,6 +48,10 @@ const signOut = async () => {
       "Content-Type": "application/json",
     },
   });
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
   const responseData = await response.json();
   return responseData;
 };

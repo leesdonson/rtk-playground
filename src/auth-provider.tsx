@@ -1,20 +1,16 @@
 import { PropsWithChildren, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// import { useAppSelector } from "./hooks/hooks";
 
-interface User {
-  name: string;
-  email: string;
-}
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
 
-  // const user: User | null =
-  //   localStorage.getItem("rtk_user") !== null
-  //     ? (JSON.parse(localStorage.getItem("rtk_user")!) as User)
-  //     : null;
-  const user = useSelector((state: { user: User }) => state.user);
-  console.log(user.email);
+  // const user = useAppSelector((state) => state.auth.user);
+  const user = localStorage.getItem("rtk_user")
+    ? JSON.parse(localStorage.getItem("rtk_user")!)
+    : null;
+
+  console.log(user);
   useEffect(() => {
     if (!user) {
       navigate("/auth/signin");

@@ -20,8 +20,7 @@ const initialValues: FormProps = {
 const SignUp = () => {
   const [formData, setFormData] = useState<SignUpProps>(initialValues);
   const dispatch = useAppDispatch();
-  const { loading } = useAppSelector((state) => state.auth);
-  // console.log(error);
+  const { loading, message } = useAppSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
@@ -40,6 +39,7 @@ const SignUp = () => {
     const payload = { name, email, password };
     dispatch(signUp(payload)).then((res: any) => {
       if (res.meta.requestStatus === "fulfilled") {
+        console.log(message);
         setFormData(initialValues);
         navigate("/");
         alert(res.payload.message);

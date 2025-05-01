@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { EditPostData, NewPostData, PostProps } from "./types";
+import { EditPostData, Init, NewPostData } from "./types";
 import postServices from "./postService";
 
-const initialState: PostProps = {
+const initialState: Init = {
   posts: [],
   loading: false,
-  error: null,
+  error: "",
   message: "",
 };
 
 // Thunk Actions
 
 //  Create Post
-const createPost = createAsyncThunk(
+export const createPost = createAsyncThunk(
   "post/create",
   async (data: NewPostData, thunkAPI) => {
     try {
@@ -25,7 +25,7 @@ const createPost = createAsyncThunk(
 );
 
 //Get Posts
-const getPosts = createAsyncThunk("post/get", async (_, thunkAPI) => {
+export const getPosts = createAsyncThunk("post/get", async (_, thunkAPI) => {
   try {
     return await postServices.getPosts();
   } catch (error: any) {
@@ -39,7 +39,7 @@ const getPosts = createAsyncThunk("post/get", async (_, thunkAPI) => {
 });
 
 //Edit Post
-const editPost = createAsyncThunk(
+export const editPost = createAsyncThunk(
   "post/edit",
   async (data: EditPostData, thunkAPI) => {
     try {
@@ -52,7 +52,7 @@ const editPost = createAsyncThunk(
 );
 
 // Delete Post
-const deletePost = createAsyncThunk(
+export const deletePost = createAsyncThunk(
   "post/delete",
   async (id: string, thunkAPI) => {
     try {
@@ -81,9 +81,9 @@ const postSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.loading = false;
-        // state.posts.push(action.payload);
+        // state.posts.push(action.payload.data);
         console.log(action.payload);
-        state.message = action.payload.message;
+        state.message = action.payload?.message;
       })
       .addCase(createPost.rejected, (state, action) => {
         state.loading = false;
@@ -96,7 +96,8 @@ const postSlice = createSlice({
       .addCase(getPosts.fulfilled, (state, action) => {
         state.loading = false;
         // state.posts = action.payload;
-        console.log(action.payload);
+        state.posts = action.payload;
+        // console.log(action.payload);
       })
       .addCase(getPosts.rejected, (state, action) => {
         state.loading = false;

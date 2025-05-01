@@ -6,6 +6,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Loading from "../ui/loading";
+import { useAppDispatch } from "../../hooks/hooks";
+import { signOut } from "../../app/features/auth/authSlice";
 
 const links = [
   {
@@ -27,14 +29,21 @@ const Account = ({
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleLogout = () => {
     setLoading(true);
     setTimeout(() => {
-      localStorage.removeItem("rtk_user");
-      navigate("/auth/signin");
-      setLoading(false);
+      dispatch(signOut())
+        .then((res: any) => {
+          navigate("/auth/signin");
+          setLoading(false);
+          console.log(res.payload);
+          console.log("Signing out...");
+          localStorage.removeItem("rtk_user");
+        })
+        .catch((error) => console.log(error));
     }, 3000);
   };
   return (

@@ -17,25 +17,12 @@ export type MutationResponse = {
 export interface PostResponse {
   statusTxt: string;
   message: string;
-  data: {
-    id: string;
-    description: string;
-    thumbnail: string;
-    createdAt: string;
-    slug: string;
-    author: {
-      name: string;
-      image: string;
-    };
-    like: number | null;
-    comments: Comment[] | null;
-  };
 }
 
 export interface Comment {
   id: string;
   description: string;
-  date: string;
+  createdAt: string;
   commentBy: string;
   like: number;
 }
@@ -43,10 +30,11 @@ export interface Comment {
 export interface Post {
   id: string;
   slug: string;
-  image: string;
-  date: string;
+  thumbnail: string;
+  createdAt: string;
+  like: number | null;
   description: string;
-  comments: Comment[];
+  comments: Comment[] | null;
 }
 export interface PostProps {
   posts: Post[];
@@ -54,3 +42,26 @@ export interface PostProps {
   error: string | null;
   message: string;
 }
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  image: string | null;
+}
+export type GetPosts = {
+  user: User;
+  id: string;
+  thumbnail: string | null;
+  description: string | null;
+  like: number | null;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: string;
+};
+
+export type Init = {
+  posts: GetPosts[];
+  loading: boolean;
+  error: string | null;
+  message: string;
+};
