@@ -2,7 +2,7 @@ import styles from "./input-modal.module.css";
 import { LuSend } from "react-icons/lu";
 
 interface InputModalProps {
-  modalRef: React.RefObject<HTMLDivElement>;
+  modalRef: React.RefObject<HTMLDivElement | null>;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
 }

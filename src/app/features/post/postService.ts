@@ -43,6 +43,24 @@ const getPosts = async (): Promise<GetPosts[]> => {
   return responseData.data;
 };
 
+// Get single Post
+const getPost = async (id: string): Promise<any> => {
+  const response = await fetch(`${API.post}/post/${id}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    return error;
+  }
+  const responseData = await response.json();
+  return responseData.data;
+};
+
 // Edit post
 const editPost = async (data: EditPostData): Promise<MutationResponse> => {
   const response = await fetch(`${API.post}/post/${data.id}`, {
@@ -80,5 +98,5 @@ const deletePost = async (id: string): Promise<MutationResponse> => {
   return responseData.data;
 };
 
-const postServices = { createPost, getPosts, editPost, deletePost };
+const postServices = { createPost, getPosts, getPost, editPost, deletePost };
 export default postServices;

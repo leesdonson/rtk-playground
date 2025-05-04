@@ -1,6 +1,6 @@
 import styles from "./home.module.css";
 // import { post } from "../../lib/data";
-// import PostCard from "../cards/post-card";
+import PostCard from "../cards/post-card";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useEffect } from "react";
 import { getPosts } from "../../app/features/post/postSlice";
@@ -28,25 +28,30 @@ const HomePage = () => {
 
   return (
     <div className={styles.home}>
-      <p>home</p>
-      {/* <div className={styles.card_content}>
-        {post.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
-      </div> */}
-      <div className={styles.posts_collections}>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={styles.card_content}>
+          {posts &&
+            posts.length > 0 &&
+            posts?.map((post) => <PostCard key={post.id} post={post} />)}
+        </div>
+      )}
+
+      {/* <div className={styles.posts_collections}>
         {loading ? (
           <Loading />
         ) : (
           <div className="">
-            {posts?.map((post, i) => (
-              <h1 className={styles.post_description} key={i}>
-                {post?.description}
-              </h1>
-            ))}
+            {posts &&
+              posts?.map((post, i) => (
+                <h1 className={styles.post_description} key={i}>
+                  {post?.description}
+                </h1>
+              ))}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -10,7 +10,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     ? JSON.parse(localStorage.getItem("rtk_user")!)
     : null;
 
-  console.log(user);
   useEffect(() => {
     if (!user) {
       navigate("/auth/signin");

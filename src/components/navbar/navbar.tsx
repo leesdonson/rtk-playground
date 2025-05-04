@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className={style.nav_container}>
         <div className={style.logo}>
           <Link className={style.logo_link} to="/">
-            RTK-PG
+            DevlyMedia
           </Link>
         </div>
         <nav className={style.nav}>

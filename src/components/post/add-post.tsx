@@ -5,6 +5,7 @@ import { FaRegWindowClose } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hooks";
 import { createPost } from "../../app/features/post/postSlice";
+import Loading from "../ui/loading";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -12,6 +13,10 @@ const CreatePost = () => {
   const [file, setFile] = useState<File | null>(null);
   const [text, setText] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const cloudName = import.meta.env.VITE_APP_CLOUD_NAME;
+  const uploadPreset = import.meta.env.VITE_APP_UPLOAD_PRESET;
 
   // console.log(file);
   const dispatch = useAppDispatch();
@@ -26,21 +31,48 @@ const CreatePost = () => {
     setFile(selectedFile);
   };
 
+  const upload = async () => {
+    setLoading(true);
+    try {
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+      formData.append("cloud_name", cloudName);
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await res.json();
+
+      setLoading(false);
+      return data.secure_url;
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    const image = await upload();
     const payload = {
       description: text,
-      thumbnail: "placeholder.png",
+      thumbnail: image,
     };
-    dispatch(createPost(payload)).then((data: any) => {
-      if (data.payload) {
-        console.log(data.payload.message);
+    dispatch(createPost(payload)).then((res) => {
+      if (res.type === "post/create/fulfilled") {
+        console.log(res.payload);
         navigate("/");
+      } else {
+        console.log("Error has occured");
       }
     });
   };
@@ -81,7 +113,13 @@ const CreatePost = () => {
           </div>
         )}
         <button className={styles.post_button} type="submit">
-          Post
+          {loading ? (
+            <div className={styles.loading}>
+              <Loading /> Posting...
+            </div>
+          ) : (
+            <span>Post</span>
+          )}
         </button>
       </form>
     </div>

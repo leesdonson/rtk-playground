@@ -4,6 +4,7 @@ import postServices from "./postService";
 
 const initialState: Init = {
   posts: [],
+  post: null,
   loading: false,
   error: "",
   message: "",
@@ -37,6 +38,19 @@ export const getPosts = createAsyncThunk("post/get", async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+//Get post
+export const getPost = createAsyncThunk(
+  "post/get-details",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      return postServices.getPost(id);
+    } catch (error) {
+      const err = error as { data: { message: string } };
+      return rejectWithValue(err.data.message);
+    }
+  }
+);
 
 //Edit Post
 export const editPost = createAsyncThunk(
@@ -81,7 +95,6 @@ const postSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.loading = false;
-        // state.posts.push(action.payload.data);
         console.log(action.payload);
         state.message = action.payload?.message;
       })
@@ -95,11 +108,23 @@ const postSlice = createSlice({
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.loading = false;
-        // state.posts = action.payload;
         state.posts = action.payload;
-        // console.log(action.payload);
       })
       .addCase(getPosts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+    builder
+      .addCase(getPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPost.fulfilled, (state, action) => {
+        state.loading = false;
+        // const post = state.posts.find((post) => post.id === action.payload.id);
+        state.post = action.payload;
+        console.log(action.payload);
+      })
+      .addCase(getPost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
@@ -109,7 +134,6 @@ const postSlice = createSlice({
       })
       .addCase(editPost.fulfilled, (state, action) => {
         state.loading = false;
-        // state.posts = action.payload;
         console.log(action.payload);
       })
       .addCase(editPost.rejected, (state, action) => {

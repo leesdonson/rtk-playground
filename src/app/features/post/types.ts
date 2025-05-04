@@ -46,21 +46,23 @@ interface User {
   id: string;
   name: string;
   email: string;
-  image: string | null;
+  image: string | undefined;
 }
 export type GetPosts = {
   user: User;
   id: string;
-  thumbnail: string | null;
-  description: string | null;
-  like: number | null;
-  createdAt: Date;
-  updatedAt: Date;
+  thumbnail: string;
+  description: string;
+  like: number | undefined;
+  createdAt: string;
+  updatedAt: string;
   userId: string;
+  comments: [];
 };
 
 export type Init = {
   posts: GetPosts[];
+  post: GetPosts | null;
   loading: boolean;
   error: string | null;
   message: string;

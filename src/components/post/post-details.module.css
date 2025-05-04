@@ -8,16 +8,18 @@
   margin: 0 auto;
   padding: 5px;
   width: 100%;
-  border: 0.3px solid rgb(95, 94, 89);
+  border: 0.3px solid rgba(85, 85, 82, 0.747);
   border-radius: 10px;
+  padding: 8px;
 }
-
+/* Header  */
 .post_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
 }
+/* Left section  */
 .detail_left {
   display: flex;
   align-items: center;
@@ -36,12 +38,25 @@
   object-fit: cover;
   object-position: center;
 }
+.initials {
+  border: 1px solid blue;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.user_initials {
+  font-size: 1rem;
+}
 .author_name {
-  font-weight: 600;
-  font-size: 1.5rem;
+  font-weight: 500;
+  font-size: 1.2rem;
   text-transform: capitalize;
 }
+/* Right section  */
 
+/* .right{} */
 .follow {
   padding: 8px 16px;
   border-radius: 8px;
@@ -51,19 +66,21 @@
   font-size: 1rem;
   font-weight: 500;
   font-family: sans-serif;
-  transition: background 0.8s ease-in-out;
   cursor: pointer;
 }
-.details_container {
-  margin-top: 10px;
-}
 
+/* Details  */
+.details_container {
+  margin-top: 20px;
+}
+.description {
+  margin: 10px 0;
+}
 .card_image {
   width: 100%;
   height: auto;
   overflow: hidden;
 }
-
 .post_image {
   width: 100%;
   height: 100%;
@@ -72,37 +89,47 @@
   border-radius: 10px;
 }
 
+/* Comments section  */
 .comments {
-  border: 0.3px solid gray;
+  border: 0.3px solid rgba(80, 76, 76, 0.774);
   border-radius: 10px;
-  background: linear-gradient(
-    to right,
-    rgba(83, 76, 76, 0.66),
-    rgba(119, 111, 111, 0.66)
-  );
   margin-top: 10px;
   padding: 10px;
   display: flex;
   align-items: start;
   flex-direction: column;
-  gap: 15px;
 }
-.comment_top {
+.comment_input {
   width: 100%;
+  padding: 7px 15px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  border: none;
+  background-color: rgba(57, 57, 63, 0.678);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
 }
-.cmt_btn {
+.cmt_input {
+  width: 90%;
+  background-color: transparent;
   border: none;
-  padding: 6px 8px;
-  background-color: blue;
-  border-radius: 25px;
+  outline: none;
+  padding: 10px;
+}
+.send_icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  font-size: 12px;
+  padding: 7px;
+  background-color: blue;
+  border-radius: 25px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
+}
+.send {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 600;
 }

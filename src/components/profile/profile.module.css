@@ -1,10 +1,119 @@
-.profile {
+.profile_layout {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 6rem;
+  width: 100%;
+}
+.profile_content {
+  max-width: 1024px;
+  margin: auto 0;
+  width: 100%;
+  border: 0.3px solid rgba(90, 89, 87, 0.815);
+}
+.profile_header {
+  position: relative;
+  width: 100%;
+}
+.profile_cover {
+  width: 100%;
+  z-index: -1;
+}
+.cover {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+}
+.profile_image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 20px;
-  padding: 20px;
-  border: 0.3px solid rgb(243, 200, 6);
-  border-radius: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 10;
+  border: 2.3px solid rgba(18, 19, 17, 0.979);
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+/* Profile details  */
+.profile_details {
+  width: 100%;
+}
+.tabs_nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 10px;
+}
+.tabs {
+  width: 100%;
+  border: 0.3px solid rgba(90, 89, 87, 0.815);
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #f8f3f3;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+/* Tabs sections  */
+.tab_sections {
+  width: 100%;
+  padding: 10px;
+}
+
+/* Followers */
+
+/* Following  */
+
+/* Likes  */
+
+/* About  */
+.header {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  align-items: start;
+  justify-content: center;
+}
+.text_content {
+  padding: 5px 0;
+}
+/* Posts  */
+.post_contents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+  margin: 5px 0;
+}
+.post {
+  width: 100%;
+  border: 0.3px solid rgba(90, 89, 87, 0.815);
+
+  border-radius: 5px;
+}
+.post_image_container {
+  width: 100%;
+  height: 200px;
+}
+.post_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
 }

@@ -38,11 +38,11 @@ const SignUp = () => {
     }
     const payload = { name, email, password };
     dispatch(signUp(payload)).then((res: any) => {
-      if (res.meta.requestStatus === "fulfilled") {
+      if (res.type === "auth/signUp/fulfilled") {
         console.log(message);
+        localStorage.setItem("rtk_user", JSON.stringify(res.payload?.data));
         setFormData(initialValues);
         navigate("/");
-        alert(res.payload.message);
       }
     });
   };

@@ -44,6 +44,17 @@
   border-radius: 50%;
   overflow: hidden;
 }
+.initials {
+  border: 1px solid blue;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.user_initials {
+  font-size: 1rem;
+}
 .avatar {
   width: 100%;
   height: 100%;
@@ -51,8 +62,8 @@
   object-position: center;
 }
 .author_name {
-  font-weight: 600;
-  font-size: 1.5rem;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 .description {
   width: 100%;
@@ -61,6 +72,33 @@
   font-size: 1rem;
   font-weight: 500;
   font-family: verdana;
+}
+.description_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.description_text {
+  font-family: sans-serif;
+  line-height: 1.4;
+}
+.newline_box {
+  display: inline-block;
+}
+.description_text.newLine {
+  display: block;
+  margin: 8px 0;
+}
+.read_more_btn {
+  background: #3e01e7;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 .card_image {
   width: 100%;
@@ -95,7 +133,6 @@
   font-size: 1rem;
   font-weight: 500;
   font-family: sans-serif;
-  transition: background 0.8s ease-in-out;
   cursor: pointer;
 }
 .like,

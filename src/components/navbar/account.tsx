@@ -4,16 +4,15 @@ import { IoMdSettings } from "react-icons/io";
 import { PiSignOutFill } from "react-icons/pi";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Loading from "../ui/loading";
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { signOut } from "../../app/features/auth/authSlice";
 
 const links = [
   {
     id: 1,
     title: "Profile",
-    url: "/account/me",
+    url: "/account",
     icon: <FaCircleUser />,
   },
   {
@@ -30,22 +29,20 @@ const Account = ({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(false);
+  const { loading } = useAppSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const handleLogout = () => {
-    setLoading(true);
-    setTimeout(() => {
-      dispatch(signOut())
-        .then((res: any) => {
-          navigate("/auth/signin");
-          setLoading(false);
-          console.log(res.payload);
-          console.log("Signing out...");
-          localStorage.removeItem("rtk_user");
-        })
-        .catch((error) => console.log(error));
-    }, 3000);
+    dispatch(signOut())
+      .then((res) => {
+        navigate("/auth/signin");
+
+        console.log(res.payload.message);
+        localStorage.removeItem("rtk_user");
+      })
+      .catch((error) => console.log(error));
   };
+
   return (
     <div className={styles.account}>
       <div className={styles.account_header}>

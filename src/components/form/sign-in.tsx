@@ -45,7 +45,7 @@ const SignIn = () => {
     const payload = { email, password };
     dispatch(signIn(payload)).then((res: any) => {
       console.log(message);
-      if (res.payload?.data) {
+      if (res.type === "auth/signIn/fulfilled") {
         localStorage.setItem("rtk_user", JSON.stringify(res.payload?.data));
         navigate("/");
       }

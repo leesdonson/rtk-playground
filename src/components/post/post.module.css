@@ -121,6 +121,12 @@
 .post_button:hover {
   background: linear-gradient(to left, #333030, #201e19);
 }
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 
 /* media queries  */
 @media screen and (max-width: 1024px) {
